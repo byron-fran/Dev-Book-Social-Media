@@ -123,4 +123,7 @@ STATIC_URL = 'static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
+# Users authentication settting
+AUTH_USER_MODEL='users.User'
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
