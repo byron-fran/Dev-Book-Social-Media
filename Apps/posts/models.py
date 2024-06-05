@@ -18,6 +18,7 @@ class Post(TimeStampedModel):
         verbose_name='post'
         verbose_name_plural='posts'
         
+        
     def __str__(self) -> str:
         return self.id
     
@@ -25,7 +26,7 @@ class Like(TimeStampedModel):
     
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='likes')
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='posts') 
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='likes') 
     
     class Meta:
         db_table='likes'

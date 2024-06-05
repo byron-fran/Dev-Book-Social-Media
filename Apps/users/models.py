@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from model_utils.models import TimeStampedModel
+from .managers import UserManager
 import uuid
 
 # Create your models here.
@@ -11,13 +12,15 @@ class User (AbstractBaseUser,PermissionsMixin):
     password = models.CharField(max_length=200)
     bio = models.TextField(blank=True, null=True)
     first_name=models.CharField(max_length=200)
-    last_name = models.CharField(null=True, blank=True)
-    birthdate =models.DateField()
+    last_name = models.CharField(null=True, blank=True,max_length=200)
+    # birthdate =models.DateField(null=True)
     
     # photo_profile = models.FileField()
     
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
+    
+    objects = UserManager()
     
     class Meta:
         
@@ -29,6 +32,7 @@ class User (AbstractBaseUser,PermissionsMixin):
         return self.username
     
     REQUIRED_FIELDS = []
+    USERNAME_FIELD ='email'
     
 class Follows(TimeStampedModel):
     

@@ -10,7 +10,7 @@ class Comment(TimeStampedModel):
     id =models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
     content = models.TextField(name='comment')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='posts')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
     
     class Meta:
         db_table='comments'
