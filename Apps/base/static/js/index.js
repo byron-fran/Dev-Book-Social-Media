@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const hideSidebar = () => {
 
-        sidebar.classList.remove('flex', 'absolute', 'h-screen', 'z-50',  'top-0', 'w-[80%]', 'transition-all', 'ease-in-out');
+        sidebar.classList.remove('flex', 'absolute', 'h-screen', 'z-50',  'top-0', 'w-[80%]', 'transition-all', 'ease-in-out','bg-white');
         sidebar.classList.add('hidden', 'w-full');
        // body.classList.remove('sidebar-open');
 
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     menuButton.addEventListener('click', (e) => {
 
         e.stopPropagation()
-        sidebar.classList.add('flex', 'absolute', 'h-screen', 'z-50', 'bg-white', 'top-0', 'w-[80%]', 'transition-all', 'ease-in-out');
+        sidebar.classList.add('flex', 'absolute', 'h-screen','bg-white', 'z-50',  'top-0', 'w-[80%]', 'transition-all', 'ease-in-out');
         sidebar.classList.remove('hidden', 'w-full');
 
     })
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('click', (e) => {
 
         if (!sidebar.contains(e.target) && !menuButton.contains(e.target)) {
-            sidebar.classList.remove('flex', 'absolute', 'h-screen', 'z-50', 'bg-white', 'top-0', 'w-[80%]', 'transition-all', 'ease-in-out');
+            sidebar.classList.remove('flex', 'absolute', 'h-screen', 'z-50',  'top-0', 'w-[80%]', 'transition-all', 'ease-in-out');
             sidebar.classList.add('hidden','w-full');
           
         } 

@@ -15,7 +15,7 @@ class User (AbstractBaseUser,PermissionsMixin):
     last_name = models.CharField(null=True, blank=True,max_length=200)
     # birthdate =models.DateField(null=True)
     
-    # photo_profile = models.FileField()
+    photo_profile = models.ImageField(upload_to='profiles_photo/', null=True, blank=True)
     
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)

@@ -2,6 +2,7 @@ from django.db import models
 from model_utils.models import TimeStampedModel
 import uuid
 from users.models import User
+from .managers import PostManager
 
 # Create your models here.
 class Post(TimeStampedModel):
@@ -9,18 +10,18 @@ class Post(TimeStampedModel):
     id = models.UUIDField(default=uuid.uuid4, editable=False,primary_key=True)
     content = models.TextField(null=False, blank=True)
     published = models.BooleanField(default=False)
-    # image = models.FileField(upload_to='')
+    image = models.ImageField(upload_to='images/', null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
+    objects = PostManager()
     
     class Meta:
-        
         db_table='posts'
         verbose_name='post'
         verbose_name_plural='posts'
         
-        
+
     def __str__(self) -> str:
-        return self.id
+        return f'{self.user.email}'
     
 class Like(TimeStampedModel):
     

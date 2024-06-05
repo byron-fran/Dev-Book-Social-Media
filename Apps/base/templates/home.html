@@ -11,7 +11,7 @@
       </svg>
     </button>
 
-    <aside class="bg-white hidden  md:flex p-4 md:col-span-2 w-full" id="sidebar">
+    <aside class=" hidden  md:flex p-4 md:col-span-2 w-full" id="sidebar">
       <ul class="ml-4 flex flex-col  items-start justify-around h-[50%]">
 
         <li>
@@ -61,6 +61,7 @@
     </aside>
     <div class="w-full  md:col-span-4 overflow-y-scroll no-scrollbar">
         {% comment %} ! todo show all posts {% endcomment %}
+        {% include "posts.html" %}
     </div>
     {% comment %}! todo create sidebar right{% endcomment %}
   </main>
