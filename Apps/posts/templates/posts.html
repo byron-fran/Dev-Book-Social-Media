@@ -15,7 +15,7 @@
                         <p class="text-slate-400">{{ post.user.email}}</p>
                     </div>
                 </div>
-                <p class="mt-6">{{ post.content }}</p>
+                <p class="mt-6">{{ post.content|safe }}</p>
                 {% if post.image %}
                     <img class="rounded-xl mx-auto mt-8 h-[500px] object-contain" src="{{ post.image.url}}" alt="{{ post.image}}">
                 {% endif %}

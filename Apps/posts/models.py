@@ -3,12 +3,13 @@ from model_utils.models import TimeStampedModel
 import uuid
 from users.models import User
 from .managers import PostManager
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 class Post(TimeStampedModel):
     
     id = models.UUIDField(default=uuid.uuid4, editable=False,primary_key=True)
-    content = models.TextField(null=False, blank=True)
+    content = RichTextField(name='content')
     published = models.BooleanField(default=False)
     image = models.ImageField(upload_to='images/', null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
