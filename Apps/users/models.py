@@ -13,10 +13,11 @@ class User (AbstractBaseUser,PermissionsMixin):
     bio = models.TextField(blank=True, null=True)
     first_name=models.CharField(max_length=200)
     last_name = models.CharField(null=True, blank=True,max_length=200)
+    
     # birthdate =models.DateField(null=True)
     
     photo_profile = models.ImageField(upload_to='profiles_photo/', null=True, blank=True)
-    
+    image_background = models.ImageField(upload_to='background/', null=True, blank=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
     
