@@ -11,7 +11,7 @@
                     {% comment %} !todo add image default if not photo profile {% endcomment %}
                    
                     <div>
-                        <a href="{% url 'profile' post.user.id %}">{{ post.user.username}}</a>
+                        <a href="{% url 'users:profile' post.user.id %}">{{ post.user.username}}</a>
                         <p class="text-slate-400">{{ post.user.email}}</p>
                     </div>
                 </div>

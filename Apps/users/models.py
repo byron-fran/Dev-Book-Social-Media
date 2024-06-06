@@ -38,8 +38,8 @@ class User (AbstractBaseUser,PermissionsMixin):
 class Follows(TimeStampedModel):
     
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
-    follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following')
-    followed = models.ForeignKey(User, on_delete=models.CASCADE, related_name='followers')
+    follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='followers')
+    followed = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following')
     
     class Meta:
         db_table= 'follows'
