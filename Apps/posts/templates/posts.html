@@ -5,15 +5,20 @@
         {% for post in posts%}
             <div class="bg-white mx-auto w-[90%] my-8 p-8 rounded-xl">
                 <div class="flex items-center justify-start gap-6">
-                    <img class="rounded-full w-[50px] h-[50px]" src="{{ post.user.photo_profile.url}}" alt="{{ post.image}}">
-                  
+                    {% if post.user.photo_profile %}
+                        <img class="rounded-full w-[50px] h-[50px]" src="{{ post.user.photo_profile.url}}" alt="{{ post.image}}">
+                    {% endif %}
+                    {% comment %} !todo add image default if not photo profile {% endcomment %}
+                   
                     <div>
-                        <h2>{{ post.user.username}}</h2>
+                        <a href="{% url 'profile' post.user.id %}">{{ post.user.username}}</a>
                         <p class="text-slate-400">{{ post.user.email}}</p>
                     </div>
                 </div>
                 <p class="mt-6">{{ post.content }}</p>
-                <img class="rounded-xl mx-auto mt-8 h-[500px] object-contain" src="{{ post.image.url}}" alt="{{ post.image}}">
+                {% if post.image %}
+                    <img class="rounded-xl mx-auto mt-8 h-[500px] object-contain" src="{{ post.image.url}}" alt="{{ post.image}}">
+                {% endif %}
                 <div class="flex justify-between items-center mt-6">
 
                     <div class="flex items-center justify-around w-[50%]">
