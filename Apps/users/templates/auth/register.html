@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="w-full flex justify-center h-screen items-center">
+    <form  method="post" class="w-[90%] sm:w-[70%] md:w-[50%] xl:w-[30%] mx-auto border border-slate-300 p-8 rounded-md">
+        {% csrf_token %}    
+
+        {% for error in form.email.errors%}
+            <li class="text-red-500 list-none">{{error}}</li>
+        {% endfor %}
+        <label for="">email</label>
+        {{ form.email }}
+
+        {% for error in form.username.errors%}
+            <li class="text-red-500 list-none">{{error}}</li>
+        {% endfor %}
+        <label for="">username</label>
+        {{ form.username }}
+
+        {% for error in form.password.errors %}
+            <li class="text-red-500 list-none">{{error}}</li>
+        {% endfor %}
+        <label for="">password</label>
+        {{ form.password }}
+
+        {% for error in form.password2.errors%}
+            <li class="text-red-500 list-none">{{error}}</li>
+        {% endfor %}
+        <label for="">repeat  password</label>
+        {{ form.password2 }}
+
+        <button class="w-full pink-normal text-white p-2 rounded-md mt-4" type="submit">Sign up</button>
+        <div class="mt-2 flex w-full justify-between">
+          <a class="mt-2 text-sky-500" href="{% url 'users:login' %}">If do you have an account? login </a>
+        </div>
+
+    </form>
+</div>
+{% endblock content %}

@@ -65,6 +65,7 @@ def remove_follow(request, id_user):
         # Buscar la relación de seguimiento
         follow_instance = Follows.objects.filter(follower=user, followed=user_local)
         follow_instance.delete()
+        
     except IntegrityError:
         pass
     
@@ -74,6 +75,22 @@ def remove_follow(request, id_user):
     return redirect('users:profile', id_user)
 
 # authentications
+class RegisterView(FormView):
+    form_class = RegisterForm
+    template_name = 'auth/register.html'
+    
+    success_url= reverse_lazy('home')
+    
+    def form_valid(self, form: Any) -> HttpResponse:
+       
+        user = form.save()
+        
+        if user is not None:
+            user.backend = 'users.backends.EmailBackend'
+            login(self.request, user)
+        return super(RegisterView, self).form_valid(form)
+    
+
 class LoginView( FormView):
     
     form_class = LoginForm
@@ -88,6 +105,7 @@ class LoginView( FormView):
         user = authenticate(username=email, password=password)
 
         if user is not None:
+            user.backend = 'users.backends.EmailBackend'
             login(self.request, user)
             return super().form_valid(form)
         else:

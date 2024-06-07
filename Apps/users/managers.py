@@ -7,8 +7,7 @@ class UserManager(BaseUserManager, models.Manager):
     def _create_user(
         self, username,email, password, is_staff : bool, is_superuser : bool, is_active : bool, **kwargs
     ):
-        if not email:
-            raise ValueError('The Email field must be set')
+       
         user = self.model(
             email=email,
             is_staff=is_staff,
@@ -17,7 +16,7 @@ class UserManager(BaseUserManager, models.Manager):
             username=username,
             **kwargs
         )
-        user.set_password(password)  # Asegúrate de que esto esté correctamente configurado
+        user.set_password(password) 
         user.save(using=self._db)
         return user
 

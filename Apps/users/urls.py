@@ -9,6 +9,7 @@ urlpatterns = [
     path('add/follow/<str:id_user>/', views.add_follow, name='add_follow'),
     path('remove/follow/<str:id_user>/', views.remove_follow, name='remove_follow'),
     # authentications
+    path('register/', views.RegisterView.as_view(), name='register'),
     path('login/', views.LoginView.as_view(), name='login'),
     path('logout/', views.logout_view, name='logout')
     
