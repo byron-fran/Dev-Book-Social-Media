@@ -135,6 +135,13 @@ MEDIA_URL = "/media/"
 
 # Users authentication settting
 AUTH_USER_MODEL = "users.User"
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'users.backends.EmailBackend',  # Asegúrate de cambiar 'path.to' a la ubicación real de tu archivo backends.py
+]
 
 # configuration tailwind css
 TAILWIND_APP_NAME = "theme"

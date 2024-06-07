@@ -1,18 +1,22 @@
 from typing import Any
 from django.db.models.query import QuerySet
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from django.views.generic import CreateView
+from django.urls import reverse_lazy
+from django.views.generic import CreateView,FormView
 from .models import User
 from posts.models import Post
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import redirect
 from .models import Follows
 from django.db import IntegrityError
+from .forms import RegisterForm, LoginForm
+from django.contrib.auth import login, authenticate, logout
+from django.contrib import messages
 
-# Create your views here.
 class ProfileUser(LoginRequiredMixin, CreateView):
     
-    template_name = 'profile_user.html'
+    template_name = 'profile/profile_user.html'
     queryset = Post.objects.all()
     fields = '__all__'
     login_url = 'home'
@@ -68,3 +72,33 @@ def remove_follow(request, id_user):
         pass
     
     return redirect('users:profile', id_user)
+
+# authentications
+class LoginView( FormView):
+    
+    form_class = LoginForm
+    template_name = 'auth/login.html'
+   
+    success_url = reverse_lazy('home')   
+    
+    def form_valid(self, form: Any) -> HttpResponse:
+
+        email  = form.cleaned_data['email']
+        password = form.cleaned_data['password']
+        user = authenticate(username=email, password=password)
+
+        if user is not None:
+            login(self.request, user)
+            return super().form_valid(form)
+        else:
+            messages.error(self.request, 'Email or password incorrect')
+            return super().form_invalid(form)
+        
+ 
+
+# logout
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect(
+        redirect_to='/login/'
+    )

@@ -3,7 +3,7 @@ from .models import User, Follows
 # Register your models here.
 
 class UserAdmin(admin.ModelAdmin):
-    pass
+    readonly_fields = ('password', )
 
 class FollowsAdmin(admin.ModelAdmin):
     pass

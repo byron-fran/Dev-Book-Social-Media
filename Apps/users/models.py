@@ -19,7 +19,7 @@ class User (AbstractBaseUser,PermissionsMixin):
     photo_profile = models.ImageField(upload_to='profiles_photo/', null=True, blank=True)
     image_background = models.ImageField(upload_to='background/', null=True, blank=True)
     is_staff = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
     
     objects = UserManager()
     
