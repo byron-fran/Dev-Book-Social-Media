@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView,FormView
+from django.views.generic.edit import UpdateView
 from .models import User
 from posts.models import Post
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -110,6 +111,7 @@ class LoginView( FormView):
             return super().form_valid(form)
         else:
             messages.error(self.request, 'Email or password incorrect')
+            
             return super().form_invalid(form)
         
  
@@ -120,3 +122,18 @@ def logout_view(request):
     return HttpResponseRedirect(
         redirect_to='/login/'
     )
+    
+# Update profile
+class UpdateProfile(UpdateView):
+    
+    model = User
+    fields= ['username', 'email', 'bio', 'first_name', 'last_name', 'birthdate', 'photo_profile']
+    template_name = 'profile/profile_update.html'
+    
+    def get_success_url(self) -> str:
+        id = self.kwargs['pk'] 
+        self.success_url = f'/update/{id}/?ok=1'
+        return super().get_success_url()
+    
+    
+    

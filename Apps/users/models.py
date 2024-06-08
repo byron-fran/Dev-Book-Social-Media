@@ -6,6 +6,7 @@ import uuid
 
 # Create your models here.
 class User (AbstractBaseUser,PermissionsMixin):
+    
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
     username = models.CharField(unique=True, max_length=200)
     email = models.EmailField(max_length=200, unique=True)
@@ -13,9 +14,7 @@ class User (AbstractBaseUser,PermissionsMixin):
     bio = models.TextField(blank=True, null=True)
     first_name=models.CharField(max_length=200)
     last_name = models.CharField(null=True, blank=True,max_length=200)
-    
-    # birthdate =models.DateField(null=True)
-    
+    birthdate =models.DateField(null=True, blank=True)  
     photo_profile = models.ImageField(upload_to='profiles_photo/', null=True, blank=True)
     image_background = models.ImageField(upload_to='background/', null=True, blank=True)
     is_staff = models.BooleanField(default=False)
