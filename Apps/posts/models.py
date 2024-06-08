@@ -3,7 +3,7 @@ from model_utils.models import TimeStampedModel
 import uuid
 from users.models import User
 from .managers import PostManager
-from ckeditor.fields import RichTextField
+from ckeditor.fields import RichTextField, CKEditorWidget
 
 # Create your models here.
 class Post(TimeStampedModel):
