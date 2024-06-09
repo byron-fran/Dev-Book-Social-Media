@@ -3,7 +3,7 @@ from django.db.models.query import QuerySet
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView,FormView
+from django.views.generic import CreateView,FormView, ListView
 from django.views.generic.edit import UpdateView
 from .models import User
 from posts.models import Post
@@ -75,6 +75,40 @@ def remove_follow(request, id_user):
     
     return redirect('users:profile', id_user)
 
+#followers
+class Followers(ListView):
+    model = Follows
+    context_object_name = 'followers'
+    template_name = 'follows/followers.html'
+    
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        
+        context = super().get_context_data(**kwargs)
+        id = self.kwargs['pk']
+        user = User.objects.get(id=id)
+        followers  = Follows.objects.filter(follower=user)
+        context['followers'] =  followers
+    
+        return context
+    
+    
+class Followings(ListView):
+    model = Follows
+    context_object_name = 'followings'
+    template_name = 'follows/followings.html'
+    
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+      
+        context = super().get_context_data(**kwargs) 
+        id = self.kwargs['pk']
+        user = User.objects.get(id=id)
+        
+        followings  = Follows.objects.filter(followed=user)
+        context['followings'] =  followings
+    
+        return context 
+
+    
 # authentications
 class RegisterView(FormView):
     form_class = RegisterForm
@@ -134,6 +168,7 @@ class UpdateProfile(UpdateView):
         id = self.kwargs['pk'] 
         self.success_url = f'/update/{id}/?ok=1'
         return super().get_success_url()
+    
     
     
     

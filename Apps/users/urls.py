@@ -13,6 +13,8 @@ urlpatterns = [
     path('login/', views.LoginView.as_view(), name='login'),
     path('logout/', views.logout_view, name='logout'),
     # crud user
-    path('update/<str:pk>/', views.UpdateProfile.as_view(), name='update')
-    
+    path('update/<str:pk>/', views.UpdateProfile.as_view(), name='update'),
+    # follows
+    path('followers/<str:pk>/', views.Followers.as_view(), name='followers'),
+    path('followings/<str:pk>/', views.Followings.as_view(), name='followings'),
 ]

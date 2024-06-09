@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load verify_like %}
 {% block content %}
     <div class="flex flex-col justify-center ">
         {% for post in posts%}
@@ -28,12 +29,32 @@
                 <div class="flex justify-between items-center mt-6">
 
                     <div class="flex items-center justify-around w-[50%]">
-                        <a href="#">
-                            <svg class="w-6 h-6 text-sky-400 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"/>
-                            </svg>
-                              
-                        </a>
+                        <div class="flex ">
+
+                            {% if post|verify_like:request.user %}
+                                <a href="{% url 'posts:remove_like' pk=post.id path=request.get_full_path_info  %}">
+    
+                                    <svg class="w-6 h-6 text-sky-400 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="m12.75 20.66 6.184-7.098c2.677-2.884 2.559-6.506.754-8.705-.898-1.095-2.206-1.816-3.72-1.855-1.293-.034-2.652.43-3.963 1.442-1.315-1.012-2.678-1.476-3.973-1.442-1.515.04-2.825.76-3.724 1.855-1.806 2.201-1.915 5.823.772 8.706l6.183 7.097c.19.216.46.34.743.34a.985.985 0 0 0 .743-.34Z"/>
+                                      </svg>
+                                      
+    
+                                </a>
+                            {% else %}
+    
+                                <a href="{% url 'posts:add_like'  pk=post.id path=request.get_full_path_info %}">
+    
+                                    <svg class="w-6 h-6 text-sky-400 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"/>
+                                    </svg>
+    
+                                </a>
+                            {% endif %}
+                            {% if post.likes.all.count > 0 %}
+                                <p class="text-sky-400 text-[13px]">{{post.likes.all.count}}</p>
+                            {% endif %}
+                        </div>
+
                         <a href="#">
                             <svg class="w-6 h-6 text-sky-400 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                 <path fill-rule="evenodd" d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-6.616l-2.88 2.592C8.537 20.461 7 19.776 7 18.477V17H5a2 2 0 0 1-2-2V6Zm4 2a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2H7Zm8 0a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2h-2Zm-8 3a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2H7Zm5 0a1 1 0 1 0 0 2h5a1 1 0 1 0 0-2h-5Z" clip-rule="evenodd"/>

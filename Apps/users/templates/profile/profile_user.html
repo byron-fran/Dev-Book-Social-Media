@@ -68,8 +68,8 @@
             </div>
             <div class="mt-2">
                 <div class="flex gap-4 ">
-                    <a href="#" class="text-slate-400 ">Followers <span class="font-bold text-black">{{followers}}</span></a>
-                    <a href="#" class="text-slate-400 ">Following <span class="font-bold text-black">{{following}}</span></a>
+                    <a href="{% url 'users:followers' user.id %}" class="text-slate-400 ">Followers <span class="font-bold text-black">{{followers}}</span></a>
+                    <a  href="{% url 'users:followings' user.id %}" class="text-slate-400 ">Following <span class="font-bold text-black">{{following}}</span></a>
                 </div>
                 <p class="text-slate-400 font-normal">joined May 2024</p>
             </div>

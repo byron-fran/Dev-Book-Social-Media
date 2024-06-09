@@ -129,7 +129,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-print(STATIC_ROOT, 'soy yo')
+
 # media files settings
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -143,7 +143,7 @@ LOGIN_REDIRECT_URL = '/'
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'users.backends.EmailBackend',  # Asegúrate de cambiar 'path.to' a la ubicación real de tu archivo backends.py
+    'users.backends.EmailBackend', 
 ]
 
 # configuration tailwind css
