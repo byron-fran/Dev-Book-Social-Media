@@ -18,9 +18,9 @@ class ListPosts(ListView):
         return context
     
     
-def add_like(request : HttpRequest, pk : str,path ):
+def add_like(request : HttpRequest, pk : str, path ):
     post = Post.objects.get(id=pk)
-    print(path, 'path')
+  
     try:
         new_like = Like(user=request.user, post=post)
         new_like.save()

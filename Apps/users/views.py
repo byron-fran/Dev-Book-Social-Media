@@ -1,5 +1,5 @@
 from typing import Any
-from django.db.models.query import QuerySet
+from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -7,7 +7,8 @@ from django.views.generic import CreateView,FormView, ListView
 from django.views.generic.edit import UpdateView
 from .models import User
 from posts.models import Post
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from .models import Follows
 from django.db import IntegrityError
@@ -76,7 +77,7 @@ def remove_follow(request, id_user):
     return redirect('users:profile', id_user)
 
 #followers
-class Followers(ListView):
+class Followers(LoginRequiredMixin,ListView):
     model = Follows
     context_object_name = 'followers'
     template_name = 'follows/followers.html'
@@ -92,7 +93,7 @@ class Followers(ListView):
         return context
     
     
-class Followings(ListView):
+class Followings(LoginRequiredMixin, ListView):
     model = Follows
     context_object_name = 'followings'
     template_name = 'follows/followings.html'
@@ -153,12 +154,10 @@ class LoginView( FormView):
 # logout
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect(
-        redirect_to='/login/'
-    )
+    return HttpResponseRedirect(redirect_to='/login/')
     
 # Update profile
-class UpdateProfile(UpdateView):
+class UpdateProfile(LoginRequiredMixin, UpdateView):
     
     model = User
     fields= ['username', 'email', 'bio', 'first_name', 'last_name', 'birthdate', 'photo_profile']
@@ -168,7 +167,8 @@ class UpdateProfile(UpdateView):
         id = self.kwargs['pk'] 
         self.success_url = f'/update/{id}/?ok=1'
         return super().get_success_url()
+
     
-    
+
     
     
