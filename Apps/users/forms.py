@@ -94,4 +94,26 @@ class RegisterForm(forms.ModelForm):
         self.instance.set_password(password)
         return super().save(commit)
     
-        
+class ChangePasswordForm(forms.Form):
+    
+    password = forms.CharField(
+        label='password',
+        required=True,
+        min_length=8,
+        max_length=200,
+        widget=forms.PasswordInput(attrs={'class' : 'border-none w-full rounded-md my-2'})
+    )        
+    new_password = forms.CharField(
+        label='new passowrd',
+        required=True,
+        min_length=8,
+        max_length=200,
+        widget=forms.PasswordInput(attrs={'class' : 'border-none w-full rounded-md my-2'})
+    )
+    new_password2 = forms.CharField(
+        label='repeat new password',
+        required=True,
+        min_length=8,
+        max_length=200,
+        widget=forms.PasswordInput(attrs={'class' : 'border-none w-full rounded-md'})
+    )

@@ -8,11 +8,11 @@ from django.views.generic.edit import UpdateView
 from .models import User
 from posts.models import Post
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth import update_session_auth_hash
 from django.shortcuts import redirect
 from .models import Follows
 from django.db import IntegrityError
-from .forms import RegisterForm, LoginForm
+from .forms import RegisterForm, LoginForm,ChangePasswordForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 
@@ -169,6 +169,37 @@ class UpdateProfile(LoginRequiredMixin, UpdateView):
         return super().get_success_url()
 
     
-
+# passwords
+class ChangePassword(LoginRequiredMixin, FormView):
+    template_name = 'passwords/change_password.html'
+    form_class = ChangePasswordForm
+    
+    success_url = reverse_lazy('users:change_password')
+    
+    def form_valid(self, form):
+        user = self.request.user
+        password = self.request.POST.get('password')
+        new_password = self.request.POST.get('new_password')
+        new_password2 = self.request.POST.get('new_password2')
+        
+        if user.check_password(password):
+            
+            if new_password != new_password2:
+                
+                messages.error(self.request, 'password must match')
+                return super().form_invalid(form)
+            
+            messages.success(self.request, 'password change success')
+            user.set_password(new_password)
+            user.save()
+              
+            # Re-authenticate the user after changing the password
+            update_session_auth_hash(self.request, user)  
+            
+            return super().form_valid(form)
+        
+        messages.error(self.request, 'Invalid password')
+        return super().form_invalid(form)
+            
     
     

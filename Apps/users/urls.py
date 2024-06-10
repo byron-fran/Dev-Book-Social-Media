@@ -17,5 +17,7 @@ urlpatterns = [
     # follows
     path('followers/<str:pk>/', views.Followers.as_view(), name='followers'),
     path('followings/<str:pk>/', views.Followings.as_view(), name='followings'),
+    # password routes
+    path('change_password/', views.ChangePassword.as_view(), name='change_password')
    
 ]
