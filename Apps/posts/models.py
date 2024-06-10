@@ -35,4 +35,16 @@ class Like(TimeStampedModel):
         
     def __str__(self) -> str:
         return f'{self.user.username}'  
+    
+class Saved(TimeStampedModel):
+    
+    id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='saved')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='saved')  
+    
+    class Meta:
+        db_table = 'saved'
         
+    def __str__(self) -> str:
+        return f'{self.user.username}'  
+    
