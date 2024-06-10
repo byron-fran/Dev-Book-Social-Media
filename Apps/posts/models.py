@@ -34,5 +34,5 @@ class Like(TimeStampedModel):
         db_table='likes'
         
     def __str__(self) -> str:
-        return f'{self.user.username}-{self.post.title}'  
+        return f'{self.user.username}'  
         

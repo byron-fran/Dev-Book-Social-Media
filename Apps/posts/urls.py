@@ -5,5 +5,6 @@ app_name='posts'
 urlpatterns = [
     
     path('add_like/<str:pk>/<path:path>/', views.add_like, name='add_like'),
-    path('remove_like/<str:pk>/<path:path>/', views.remove_like, name='remove_like')
+    path('remove_like/<str:pk>/<path:path>/', views.remove_like, name='remove_like'),
+    path('likes/', views.ListLikes.as_view(), name='likes')
 ]

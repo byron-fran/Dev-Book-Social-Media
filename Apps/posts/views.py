@@ -42,3 +42,19 @@ def remove_like(request : HttpRequest, pk : str, path : str):
     except post.DoesNotExist:
         pass
     return redirect(path)
+
+class ListLikes(ListView):
+    
+    model = Post
+    template_name = 'likes.html'
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)  
+        likes = []  
+        fl = self.request.user.likes.all()
+        
+        for f in fl:
+            likes.append(f.post)
+  
+        context['posts'] = likes
+        return context
