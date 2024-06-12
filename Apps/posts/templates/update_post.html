@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+{% include "navbar.html" %}
+{% load static %}
+{% load add_class %}
+
+<main class="grid md:grid-cols-8 h-[90vh] mt-[5rem] ">
+
+    {% include 'sidebar.html' %}
+    <div class=" md:col-span-6 mt-[6rem] md:mt-6 overflow-y-scroll no-scrollbar border-l border-l-slate-300">
+        {% if request.GET.ok == '1' %}
+        <div id="message_success" class="border mt-10 w-[30%] border-sky-500 rounded-md p-2 text-sky-500 text-center mx-auto transition-transform ease-out ">
+            <p>Update profile successs</p>
+        </div>
+        {% endif %} 
+        <div class=" flex w-full">
+            <form method="post" enctype="multipart/form-data" class="w-[50%] mx-auto">
+                {% csrf_token %}
+                <div class="min-w-full">
+                    <label class="block my-2   rounded-md p-1  text-slate-400">Content</label>
+                    {{ form.content|add_class:'border  resize-none border-slate-300 w-full rounded-md bg-transparent my-2' }}
+                </div>
+    
+                <div class="w-full">
+                    <div class="flex h-20 w-full mx-auto" id="img_container">
+    
+                    </div>
+                    <label id="id_image_label" class="block my-2 border border-slate-300 w-full rounded-md p-1 text-center bg-white text-slate-400" for="id_image">
+                        Select an image 
+                    </label>
+                </div>
+               
+                {{ form.image|add_class:'bg-transparent hidden ' }}
+    
+                <button class="pink-normal text-white block w-full rounded-md p-2 mb-4" type="submit">Udpate</button>
+            </form>
+        </div>
+       
+    </div>
+    <script src="{% static 'posts/index.js' %}"></script>
+    <script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+    <script>
+        CKEDITOR.replace('id_content');
+    </script>
+</main>
+
+{% endblock %}

@@ -35,7 +35,7 @@
                         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownMenuIconButton{{ forloop.counter }}">
                             {% if post.user == request.user %}
                             <li>
-                                <a href="#" class="flex text-red-600 gap-2 my-2 p-1">
+                                <a href="{% url 'posts:delete_post' pk=post.id path=request.get_full_path_info %} " class="flex text-red-600 gap-2 my-2 p-1">
                                     <svg class="w-6 h-6  dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
                                     </svg>
@@ -43,7 +43,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="flex text-sky-500 gap-2 my-2 p-1">
+                                <a href="{% url 'posts:update_post' post.id   %}" class="flex text-sky-500 gap-2 my-2 p-1">
                                     <svg class="w-6 h-6  dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.779 17.779 4.36 19.918 6.5 13.5m4.279 4.279 8.364-8.643a3.027 3.027 0 0 0-2.14-5.165 3.03 3.03 0 0 0-2.14.886L6.5 13.5m4.279 4.279L6.499 13.5m2.14 2.14 6.213-6.504M12.75 7.04 17 11.28"/>
                                     </svg>
@@ -76,7 +76,8 @@
                 <p class="text-[14px] mt-2  text-slate-400"> {{ post.created }}</p>
                 <p class="mt-6">{{ post.content|safe }}</p>
                 {% if post.image %}
-                    <img class="rounded-xl mx-auto mt-8 h-[500px] object-contain" src="{{ post.image.url}}" alt="{{ post.image}}">
+                    <img class="z-50 rounded-xl mx-auto mt-8 h-[500px] object-contain" src="{{ post.image.url}}" alt="{{ post.image}}">
+              
                 {% endif %}
                 <div class="flex justify-between items-center mt-6">
 

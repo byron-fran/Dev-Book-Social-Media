@@ -3,11 +3,13 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView
 from .models import Post, Like, Saved
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest
+from django.views.generic.edit import UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
-class ListPosts(ListView):
+class ListPosts(LoginRequiredMixin,  ListView):
     model = Post
     template_name = 'posts.html'
     context_object_name =  'posts'
@@ -43,7 +45,7 @@ def remove_like(request : HttpRequest, pk : str, path : str):
         pass
     return redirect(path)
 
-class ListLikes(ListView):
+class ListLikes(LoginRequiredMixin,ListView):
     
     model = Post
     template_name = 'likes.html'
@@ -84,7 +86,7 @@ def remove_saved(request : HttpRequest, pk : str, path : str):
     return redirect(path)
 
 
-class ListSavedPosts(ListView):
+class ListSavedPosts(LoginRequiredMixin, ListView):
     
     model = Post
     template_name = 'saved.html'    
@@ -97,6 +99,23 @@ class ListSavedPosts(ListView):
         for sm  in saved_mapper:
             saved.append(sm.post)
         context['posts'] =  saved    
-        return context  
+        return context
+       
+class UpdatePost(LoginRequiredMixin,  UpdateView):
+    model = Post
+    fields = ['content', 'image', 'published']
+    template_name = 'update_post.html'
+    
+    def get_success_url(self) -> str:
+        id = self.kwargs['pk']
+        self.success_url = f'/posts/update_post/{id}/?ok=1'
+        return super().get_success_url()
     
     
+def delete_post(request : HttpRequest,pk : str, path : str):
+    post = Post.objects.get(id=pk, user=request.user)
+    try:
+        post.delete()
+    except post.DoesNotExist:
+        raise Exception('erro delete')
+    return redirect(path) 
