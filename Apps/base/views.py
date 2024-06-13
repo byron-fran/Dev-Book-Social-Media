@@ -19,8 +19,7 @@ def home(request : HttpRequest):
             return redirect('home')  
     else:
         form = PostForm()
-            
-    
+        
     context = {'posts' : Post.objects.list_posts(), 'form' : form}
     return render(request, 'home.html', context)
 

@@ -1,5 +1,6 @@
 from django.contrib.auth.models import BaseUserManager
 from django.db import models
+from django.db.models import  Q
 
 
 class UserManager(BaseUserManager, models.Manager):
@@ -25,3 +26,10 @@ class UserManager(BaseUserManager, models.Manager):
 
     def create_user(self, username,email, password, **kwargs):
         return self._create_user(username,email, password, False, False, False, **kwargs)
+    
+    def list_users(self, q : str):
+        return self.filter(
+            Q(username__icontains=q) | 
+            Q(email__icontains=q)|  
+            Q(first_name__icontains=q) | 
+            Q(last_name__icontains=q) )

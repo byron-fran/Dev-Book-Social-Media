@@ -66,10 +66,7 @@
     </div>
     {% comment %} !todo create sidebar right{% endcomment %}
 
-<script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
-<script>
-    // Inicializa CKEditor en el campo del formulario
-    CKEDITOR.replace('id_content');
-</script>
+  <script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+  <script>CKEDITOR.replace('id_content')</script>
   </main>
 {% endblock %}

@@ -5,3 +5,4 @@ class PostManager(Manager):
     def list_posts(self):
         return self.all().order_by('-created')
     
+    

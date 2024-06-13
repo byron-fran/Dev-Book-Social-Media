@@ -2,11 +2,16 @@
 {% block content %}
 <div class="fixed bg-white top-0 w-full z-50">
     <nav class="shadow-md flex-col md:flex-row flex justify-between items-center  p-4 w-full   transition-transform duration-300 z-50 ease-in-out transform">
-        <div class="bg-sky-600 text-white rounded-md p-4 font-bold">
-            <a href="{% url 'home' %}">DevBook</a>
+        <div class="bg-sky-500 text-white rounded-md p-4 font-bold ">
+            <a href="{% url 'home' %}" class="w-max block">Django Media</a>
         </div>
         <div class="w-full  flex justify-center">
-            <input class="bg-gray-200 py-2 rounded-md w-[40%] mx-auto  px-4  border-none focus:outline-none text-slate-400 " type="text"  placeholder="search ">
+            <form action="{% url  'users:search'  %}" class="w-[40%] mx-auto flex gap-1" method="get">
+    
+                <input name="q" class="bg-gray-200 py-2 rounded-md w-full   px-4  border-none focus:outline-none text-slate-400 " type="text"  placeholder="search ">
+                <button type="submit"  class="bg-sky-500 text-white p-2 rounded-md hover:bg-sky-600 ">search</button>
+            </form>
+
         </div>
         <div class="flex gap-10 items-center">
             <a href="{% url 'home' %}"> 

@@ -213,4 +213,18 @@ def delete_account(request : HttpRequest, pk : str):
         except:
             raise Exception('error delete account')
     return redirect('/login/')    
+
+
+
+class ListSearchUsers(LoginRequiredMixin, ListView):
+    model = Post
+    template_name = 'search/search.html'
     
+    def  get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        q = self.request.GET['q']
+        if len(q )  > 0:
+          users =   User.objects.list_users(q)
+          context['users'] = users
+
+        return context    

@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView
 from .models import Post, Like, Saved
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponseRedirect
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
