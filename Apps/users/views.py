@@ -1,7 +1,5 @@
 from typing import Any
-from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView,FormView, ListView
 from django.views.generic.edit import UpdateView
@@ -9,6 +7,7 @@ from .models import User
 from posts.models import Post
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from .models import Follows
 from django.db import IntegrityError
@@ -40,7 +39,7 @@ class ProfileUser(LoginRequiredMixin, CreateView):
             pass
         return context
     
-
+@login_required
 def add_follow(request, id_user):
 
     try:
@@ -58,6 +57,7 @@ def add_follow(request, id_user):
     
     return redirect('users:profile', id_user)
 
+@login_required
 def remove_follow(request, id_user):
     
     user = User.objects.get(id=id_user)
@@ -200,6 +200,17 @@ class ChangePassword(LoginRequiredMixin, FormView):
         
         messages.error(self.request, 'Invalid password')
         return super().form_invalid(form)
-            
-    
+ 
+ 
+@login_required            
+def delete_account(request : HttpRequest, pk : str):
+    print(request.method)
+    if request.method == 'GET':
+      
+        user = User.objects.get(id=pk)
+        try:
+            user.delete()
+        except:
+            raise Exception('error delete account')
+    return redirect('/login/')    
     

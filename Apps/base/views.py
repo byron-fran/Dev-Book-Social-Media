@@ -27,5 +27,5 @@ def home(request : HttpRequest):
 @login_required    
 def settings(request : HttpRequest):
     
-    return render(request, 'settings.html', {'hola' : '3443'})  
+    return render(request, 'settings.html')  
     

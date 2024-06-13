@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
+
     const menuButton = document.querySelector('#menu');
     const sidebar = document.querySelector('#sidebar');
     const body = document.body;

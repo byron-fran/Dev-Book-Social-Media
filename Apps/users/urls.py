@@ -14,6 +14,7 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     # crud user
     path('update/<str:pk>/', views.UpdateProfile.as_view(), name='update'),
+    path('delete_account/<str:pk>/', views.delete_account, name='delete_account'),
     # follows
     path('followers/<str:pk>/', views.Followers.as_view(), name='followers'),
     path('followings/<str:pk>/', views.Followings.as_view(), name='followings'),
