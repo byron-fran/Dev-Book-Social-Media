@@ -6,7 +6,7 @@ from .models import Post, Like, Saved
 from django.http import HttpRequest, HttpResponseRedirect
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.views.generic.detail import DetailView
 # Create your views here.
 
 class ListPosts(LoginRequiredMixin,  ListView):
@@ -119,3 +119,10 @@ def delete_post(request : HttpRequest,pk : str, path : str):
     except post.DoesNotExist:
         raise Exception('erro delete')
     return redirect(path) 
+
+class DetailPost(DetailView):
+    
+    model = Post
+    template_name ='detail.html'
+    context_object_name = 'post'  
+  

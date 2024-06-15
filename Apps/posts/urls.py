@@ -13,4 +13,5 @@ urlpatterns = [
     # crud
     path('update_post/<str:pk>/', views.UpdatePost.as_view(), name='update_post'),
     path('delete_post/<str:pk>/<path:path>/', views.delete_post, name='delete_post'),
+    path('post/<str:pk>/', views.DetailPost.as_view(), name='detail')
 ]

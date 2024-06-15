@@ -74,7 +74,7 @@
                     <!-- End Dropdown menu -->
                 </div>
                 <p class="text-[14px] mt-2  text-slate-400"> {{ post.created }}</p>
-                <p class="mt-6">{{ post.content|safe }}</p>
+                <a href="{% url 'posts:detail' post.id %}" class="mt-6" >{{ post.content|safe }}</a>
                 {% if post.image %}
                     <img class="z-50 rounded-xl mx-auto mt-8 h-[500px] object-contain" src="{{ post.image.url}}" alt="{{ post.image}}">
               
