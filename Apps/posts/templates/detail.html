@@ -11,7 +11,7 @@
     <div class="w-full md:col-span-4  overflow-y-scroll no-scrollbar border-l border-l-slate-300">
         <div class="bg-white mx-auto w-[90%] my-8 p-8 rounded-xl">
             <div class="flex justify-between">
-                <div class="flex items-center justify-start gap-6">
+                <div class="flex items-center justify-start gap-6" id="{{ post.id }}">
 
                     {% if post.user.photo_profile %}
                         <img class="rounded-full w-[50px] h-[50px]" src="{{ post.user.photo_profile.url}}" alt="{{ post.image}}">
@@ -121,8 +121,9 @@
             </div>
         </div>
         <!-- comments-->
-        <div class="border border-slate-300 mx-auto w-[90%] my-8 p-8 rounded-xl">
+        <div class="border border-slate-300 mx-auto w-[90%] my-8 py-8 px-0 rounded-xl">
             {% comment %} !todo add comments {% endcomment %}
+            {% include "comments.html" %}
         </div>
     </div>
 </main>

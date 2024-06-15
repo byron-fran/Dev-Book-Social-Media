@@ -1,12 +1,15 @@
 from typing import Any
 from django.shortcuts import redirect, render
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView
 from .models import Post, Like, Saved
 from django.http import HttpRequest, HttpResponseRedirect
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.detail import DetailView
+from comments.models import Comment
+from comments.forms import CommentForm
+
 # Create your views here.
 
 class ListPosts(LoginRequiredMixin,  ListView):
@@ -125,4 +128,24 @@ class DetailPost(DetailView):
     model = Post
     template_name ='detail.html'
     context_object_name = 'post'  
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        post = self.get_object()
+        comments = Comment.objects.filter(post=post)
+        context['comments'] = comments
+        context['form'] = CommentForm()
+        context['id'] = post.pk
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = self.object
+            comment.user = request.user  # Asegúrate de que el usuario esté autenticado
+            comment.save()
+            return redirect(reverse('posts:detail', kwargs={'pk': self.object.pk}))
+        return self.get(request, *args, **kwargs)
   
