@@ -9,9 +9,11 @@ from django.http import HttpRequest
 
 @login_required
 def home(request : HttpRequest):
-    
+
     if request.method == 'POST':
+        print(request.POST.get('content'))
         form = PostForm(request.POST, request.FILES)
+        
         if form.is_valid():
             post = form.save(commit=False)
             post.user = request.user
@@ -20,7 +22,13 @@ def home(request : HttpRequest):
     else:
         form = PostForm()
         
-    context = {'posts' : Post.objects.list_posts(), 'form' : form}
+        
+        
+    context = {
+        'posts' : Post.objects.list_posts(),
+        'form' : PostForm(),
+  
+    }
     return render(request, 'home.html', context)
 
 @login_required    

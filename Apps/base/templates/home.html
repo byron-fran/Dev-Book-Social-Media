@@ -61,12 +61,9 @@
 
             </div>
         </div>
-        
-        {% include 'posts.html' %}
+        {% include 'posts/posts.html' %}
     </div>
     {% comment %} !todo create sidebar right{% endcomment %}
-
-  <script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
-  <script>CKEDITOR.replace('id_content')</script>
+  
   </main>
 {% endblock %}

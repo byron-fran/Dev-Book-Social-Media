@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+{% include "navbar.html" %}
+{% load static %}
+
+<main class="grid md:grid-cols-8 h-[90vh] mt-[5rem] ">
+    {% include 'sidebar.html' %}
+    <div class="w-full md:col-span-4  overflow-y-scroll no-scrollbar border-l border-l-slate-300">
+        <div class="bg-white mx-auto w-[90%] my-8 p-8 rounded-xl">
+            {% include "posts/post_card.html" with post=post %}
+            {% include "forms/comment_form.html" with form=form %}
+            {% include "comments/comments.html" with post=post %}
+        </div>
+    </div>
+</main>
+
+{% endblock %}

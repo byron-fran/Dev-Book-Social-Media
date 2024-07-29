@@ -29,5 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     birthdate.setAttribute('type', 'date');
     birthdate.classList.add('w-full', 'border', 'border-slate-300', 'bg-transparent', 'rounded-md', 'my-2')
 
+    // Links posts
+    console.log("from all posts")
 
 })

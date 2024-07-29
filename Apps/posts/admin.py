@@ -3,13 +3,13 @@ from .models import Post, Like,Saved
 
 # Register your models here.
 class PostAdmin(admin.ModelAdmin):
-    pass
+    list_filter =[ 'user', 'published']
 
 class LikeAdmin(admin.ModelAdmin):
-    pass
+    list_filter =[ 'user', 'post']
 
 class SavedAdmin(admin.ModelAdmin):
-    pass
+    list_filter =[ 'user', 'post']
 
 admin.site.register(Post, PostAdmin)
 admin.site.register(Like, LikeAdmin)

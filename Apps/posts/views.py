@@ -14,12 +14,13 @@ from comments.forms import CommentForm
 
 class ListPosts(LoginRequiredMixin,  ListView):
     model = Post
-    template_name = 'posts.html'
+    template_name = 'posts/posts.html'
     context_object_name =  'posts'
-    
+   
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)    
         context['posts'] = Post.objects.list_post()
+    
         return context
     
     
@@ -51,7 +52,7 @@ def remove_like(request : HttpRequest, pk : str, path : str):
 class ListLikes(LoginRequiredMixin,ListView):
     
     model = Post
-    template_name = 'likes.html'
+    template_name = 'likes/likes.html'
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)  
@@ -92,7 +93,7 @@ def remove_saved(request : HttpRequest, pk : str, path : str):
 class ListSavedPosts(LoginRequiredMixin, ListView):
     
     model = Post
-    template_name = 'saved.html'    
+    template_name = 'saved_posts/saved.html'    
     
     def  get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
@@ -107,7 +108,7 @@ class ListSavedPosts(LoginRequiredMixin, ListView):
 class UpdatePost(LoginRequiredMixin,  UpdateView):
     model = Post
     fields = ['content', 'image', 'published']
-    template_name = 'update_post.html'
+    template_name = 'updates/update_post.html'
     
     def get_success_url(self) -> str:
         id = self.kwargs['pk']
@@ -126,13 +127,13 @@ def delete_post(request : HttpRequest,pk : str, path : str):
 class DetailPost(DetailView):
     
     model = Post
-    template_name ='detail.html'
+    template_name ='posts/detail.html'
     context_object_name = 'post'  
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         post = self.get_object()
-        comments = Comment.objects.filter(post=post)
+        comments = Comment.objects.filter(post=post).order_by('-created')
         context['comments'] = comments
         context['form'] = CommentForm()
         context['id'] = post.pk

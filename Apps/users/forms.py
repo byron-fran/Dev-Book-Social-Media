@@ -8,14 +8,14 @@ class LoginForm(forms.Form):
     email = forms.EmailField(
         label='Email', 
         required=True, 
-        # error_messages='email is required', 
+       
         max_length=200, 
         widget=forms.TextInput(attrs={'class' : 'w-full border-none rounded-md p-2 my-2 '}))
     
     password = forms.CharField(
         min_length=8, 
         max_length=200,
-        # error_messages='password is required',
+ 
         widget=forms.PasswordInput( attrs={'class' : 'w-full border-none rounded-md p-2 my-2 ',  'autocomplete':"on"}))
 
     def clean(self):

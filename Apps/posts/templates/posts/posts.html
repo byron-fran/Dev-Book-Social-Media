@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <div class="w-[90%]  mx-auto flex flex-col gap-4 justify-center ">
+        {% for post in posts %}
+            {% include "posts/post_card.html" with post=post %}
+        {% endfor %}
+    </div>    
+{% endblock content %}

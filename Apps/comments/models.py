@@ -15,6 +15,9 @@ class Comment(TimeStampedModel):
     class Meta:
         db_table='comments'
         verbose_name='comment'
-        verbose_name_plural='comments'    
+        verbose_name_plural='comments'   
+        
+    def __str__(self):
+        return self.user.username
     
 
